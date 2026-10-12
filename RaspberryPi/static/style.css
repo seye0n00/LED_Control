@@ -1,0 +1,107 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+.shelf {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.shelf-label{
+  margin-left: 10px;
+  width: 24px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #444;
+  text-align: center;
+  opacity: 0.9;
+}
+  
+button {
+  width: 50px;
+  height: 40px;
+  margin: 4px;
+  font-size: 16px;
+  cursor: pointer;
+
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  color: #000;
+  border-radius: 8px;
+}
+  
+button.on {
+  background-color: #FFD93D; /* 샐리 노랑 */
+  border-color: #FFC107;
+}
+
+.button-group{
+  display: flex;
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+
+  width: fit-content;
+
+  padding: 10px 14px;
+  margin-bottom: 24px;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+.status-icon {
+  width: 10px;
+  height: 10px;
+
+  margin-right: 10px;
+
+  border-radius: 50%;
+}
+
+
+.system-status.normal {
+  background-color: #f1f8f3;
+  color: #246b3c;
+}
+
+.system-status.normal .status-icon {
+  background-color: #39a85a;
+}
+
+
+.system-status.warning {
+  background-color: #fff4f2;
+  color: #a33a2b;
+}
+
+.system-status.warning .status-icon {
+  background-color: #e05a47;
+}
+
+
+.system-status.checking {
+  background-color: #f3f3f3;
+  color: #666;
+}
+
+.system-status.checking .status-icon {
+  background-color: #999;
+}
+
+
+.status-detail {
+  margin-top: 3px;
+
+  font-size: 12px;
+  font-weight: 400;
+
+  opacity: 0.8;
+}

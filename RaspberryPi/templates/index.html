@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>LED control</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div id="system-status" class="system-status checking">
+  <span id="status-icon" class="status-icon"></span>
+
+  <div>
+    <div id="status-message">
+      Checking system status...
+    </div>
+
+    <div id="status-detail" class="status-detail"></div>
+  </div>
+</div>
+
+<div id="container"></div>
+
+<script>
+  const shelves = ['A','B','C'];
+  const numPos = 2;
+
+  const container = document.getElementById('container');
+
+  // 전체 웹 화면에서 하나의 활성 위치만 저장
+  let activeLocation = null;
+
+  shelves.forEach(shelf => {
+    
+    // 하나의 구역 전체를 담을 section 요소 생성
+    const section = document.createElement('section');
+    section.classList.add('shelf');
+    
+    // 해당 구역의 버튼들을 묶어둘 영역 생성
+    const div = document.createElement('div');
+    div.classList.add('button-group');
+
+    // 한 구역 안에 numPos개의 버튼 생성
+    for (let i = 0; i < numPos; i++) {
+
+      // 버튼을 만들고 화면에 버튼 번호 표시
+      const btn = document.createElement('button');
+      btn.textContent = i;
+
+      const location = `${shelf}${i}`;
+
+      // 나중에 기존 활성 버튼을 찾기 위해 위치 저장
+      btn.dataset.location = location;
+      
+      // 해당 버튼을 클릭했을 때 실행할 동작 정의
+      btn.onclick = () => {
+
+        const prevLocation = activeLocation;
+
+        // 1. 현재 활성 버튼을 다시 클릭 → OFF 요청
+        if (activeLocation === location) {
+
+        btn.classList.remove('on');
+        activeLocation = null;
+
+        console.log(
+          `[BTN] prev=${prevLocation}, next=null, request=OFF`
+        );
+
+        sendLocation(location, "OFF");
+        return;
+        }
+
+        // 2. 기존 활성 버튼이 있으면 화면 표시만 OFF
+        if (activeLocation !== null) {
+
+        const prevBtn = document.querySelector(
+          `[data-location="${activeLocation}"]`
+        );
+
+        if (prevBtn) {
+          prevBtn.classList.remove('on');
+        }
+        }
+
+        // 3. 새 버튼 활성 표시
+        btn.classList.add('on');
+        activeLocation = location;
+
+        console.log(
+        `[BTN] prev=${prevLocation}, next=${activeLocation}, request=ON`
+        );
+
+        // 웹에서는 새로운 위치 ON 요청 하나만 전달
+        sendLocation(location, "ON");
+      };
+
+      // 생성한 버튼을 해당 구역의 버튼 그룹에 추가
+      div.appendChild(btn);
+    }
+
+    // A, B, C 같은 구역 이름을 표시할 라벨 생성
+    const label = document.createElement('div');
+
+    label.classList.add('shelf-label');
+    label.textContent = shelf;
+
+    // 버튼 그룹과 구역 라벨을 하나의 section 안에 배치
+    section.appendChild(div);
+    section.appendChild(label);
+
+    // 완성된 구역을 실제 웹 화면에 추가
+    container.appendChild(section);
+  });
+
+  /* LED 제어 요청 전송 */
+  // Raspberry Pi의 Flask 서버에 HTTP 요청
+  function sendLocation(location, state) {
+
+    fetch(`/led/${location}/${state}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(
+          `[SEND] location=${location}, state=${state}, result=${data.result}`
+        );
+      });
+  }
+
+  function loadLedState() {
+
+    fetch('/led/state')
+      .then(res => res.json())
+      .then(data => {
+
+        activeLocation = data.active_location;
+
+        console.log(
+          `[SYNC] activeLocation=${activeLocation}`
+        );
+
+        if (activeLocation === null) {
+          return;
+        }
+
+        const activeBtn = document.querySelector(
+          `[data-location="${activeLocation}"]`
+        );
+
+        if (activeBtn) {
+          activeBtn.classList.add('on');
+        }
+      })
+      .catch(error => {
+        console.error("[SYNC] failed", error);
+      });
+  }
+
+  /* 시스템 연결 상태 표시 */
+  // 서버로부터 시스템 상태와 각 노드의 online/offline 상태를 받음
+  function updateSystemStatus() {
+
+      fetch('/status')
+        .then(res => res.json())
+        .then(data => {
+
+          const statusBox = document.getElementById('system-status');
+          const message = document.getElementById('status-message');
+          const detail = document.getElementById('status-detail');
+
+
+          statusBox.classList.remove('normal', 'warning', 'checking');
+
+
+          if (data.system === 'normal') {
+
+            statusBox.classList.add('normal');
+            message.textContent = 'Location guidance system is ready';
+            detail.textContent = '';
+
+          }
+
+          else if (data.system === 'warning') {
+
+            statusBox.classList.add('warning');
+            message.textContent = 'Some locations are unavailable';
+            const offlineNodes = [];
+
+            for (const [node, online]
+                of Object.entries(data.nodes)) {
+
+              if (online === false) {
+                offlineNodes.push(node);
+              }
+            }
+
+
+            if (offlineNodes.length > 0) {
+
+              detail.textContent = `Offline area: ${offlineNodes.join(', ')}`;
+
+            } else {
+
+              detail.textContent = '';
+            }
+
+          }
+
+          else {
+
+            statusBox.classList.add('checking');
+            message.textContent = 'Checking system status...';
+            detail.textContent = '';
+          }
+
+        })
+
+        .catch(error => {
+
+          const statusBox = document.getElementById('system-status');
+          const message = document.getElementById('status-message');
+          const detail = document.getElementById('status-detail');
+
+
+          statusBox.classList.remove('normal', 'checking');
+          statusBox.classList.add('warning');
+          message.textContent = 'Unable to check system status';
+          detail.textContent = '';
+        });
+    }
+
+  // 페이지 최초 상태 동기화
+  loadLedState();
+
+  // 연결 상태 최초 확인
+  updateSystemStatus();
+
+  // 2초마다 연결 상태 확인
+  setInterval(updateSystemStatus, 2000);
+
+
+</script>
