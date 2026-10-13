@@ -1,3 +1,3 @@
 ## System Architecture
 
-![System Architecture](docs/architecture.svg)
+![System Architecture](docs/LED_Control_Architecture.drawio.svg)
