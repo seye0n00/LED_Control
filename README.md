@@ -4,4 +4,4 @@
 
 ## Demo Video
 
-[![Remote LED Control System Demo][https://youtu.be/b72nmJlugdU](https://youtu.be/b72nmJlugdU)
+[![Remote LED Control System Demo](https://youtu.be/b72nmJlugdU)](https://youtu.be/b72nmJlugdU)
