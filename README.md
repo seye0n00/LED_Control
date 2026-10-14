@@ -1,7 +1,7 @@
 
 ## System Architecture
 
-![System Architecture](docs/LED_Control_Architecture.drawio_v3.svg)
+![System Architecture](docs/LED_Control_Architecture_v3.drawio.svg)
 
 ## Demo Video
 
