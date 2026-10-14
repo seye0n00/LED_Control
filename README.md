@@ -37,7 +37,7 @@
 |---|---|---|
 | 웹 기반 LED 제어 | 사용자 요청을 수신하고 LED 제어 명령 생성 | Flask, Python |
 | MQTT 통신 | 제어 명령 Publish 및 장치 상태 Subscribe | Paho MQTT, PubSubClient |
-| LED 제어 | 수신 명령 해석 및 위치별 LED 제어 | ESP8266, Arduino, WS2812 |
+| LED 제어 | 수신 명령 해석 및 위치별 LED 제어 | Arduino Framework |
 
 ### MQTT Message Interface
 
