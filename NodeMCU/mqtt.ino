@@ -45,24 +45,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
     LOG_E("MQTT", "Invalid state");
   }
 }
-/* void callback(char* topic, byte* payload, unsigned int length) {
-  String msg;
-
-  for (int i = 0; i < length; i++) {
-    msg += (char)payload[i];
-  }
-
-  LOG_I("MQTT", String("RX [") + topic + "] " + msg);
-
-  int seg = msg.toInt();
-
-  if (seg < 0 || seg > 255) {
-    LOG_E("MQTT", "Invalid segment");
-    return;
-  }
-
-  toggle_segment((uint8_t)seg);
-} */
 
 void mqtt_reconnect() {
   LOG_I("MQTT", "Trying to connect");
