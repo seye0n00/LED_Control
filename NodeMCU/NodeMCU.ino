@@ -9,12 +9,10 @@ WiFiClient espClient;
 
 void setup() {
   Serial.begin(115200);
-  // delay(1000);
   LOG_I("SYSTEM", "Boot start");
 
   setup_wifi();
 
-  //device_init();
   neopixel_init();
   mqtt_init();
 
