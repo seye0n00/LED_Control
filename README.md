@@ -8,7 +8,7 @@
 
 이를 해결하기 위해 사용자가 웹에서 물품의 위치를 선택하면 해당 위치의 LED가 점등되도록 시스템을 구현했습니다.
 
-**주요 기능**
+**Key Features**
 - 웹 인터페이스를 통한 위치별 LED ON/OFF 제어
 - MQTT 기반 Raspberry Pi–ESP8266 간 명령 전달
 - Raspberry Pi의 LED 상태 관리
