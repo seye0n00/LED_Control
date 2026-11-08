@@ -17,7 +17,7 @@
 
 ## System Architecture
 
-![System Architecture](docs/LED_Control_Architecture.drawio.svg)
+![System Architecture](docs/LED_Control_Architecture_v2.drawio.svg)
 
 ### Component Responsibilities
 
