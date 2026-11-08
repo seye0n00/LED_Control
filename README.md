@@ -29,15 +29,13 @@
 | ESP8266 (NodeMCU) | MQTT 명령 수신 및 LED 출력 제어 |
 | WS2812 LED Strip | 선택된 위치의 LED 점등 및 소등 |
 
-## Key Implementation
-
-### Core Features
+## Core Features
 
 | 핵심 구현 | 설명 | 관련 기술 |
 |---|---|---|
-| 웹 기반 LED 제어 | 사용자 요청을 수신하고 LED 제어 명령 생성 | Flask, Python |
-| MQTT 통신 | 제어 명령 Publish 및 장치 상태 Subscribe | Paho MQTT, PubSubClient |
-| LED 제어 | 수신 명령 해석 및 위치별 LED 제어 | Arduino Framework |
+| 웹 기반 LED 제어 | 웹 사용자 요청을 수신하고 LED 제어 명령 생성 | Flask, Python, HTTP |
+| MQTT 메시지 통신 | 제어 명령 Publish 및 장치 상태 Subscribe | Paho MQTT, PubSubClient |
+| LED 제어 | 수신 명령 해석 및 위치별 LED 제어 | Arduino Framework, SPI |
 
 ## Demo Video
 
