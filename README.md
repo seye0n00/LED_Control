@@ -39,29 +39,6 @@
 | MQTT 통신 | 제어 명령 Publish 및 장치 상태 Subscribe | Paho MQTT, PubSubClient |
 | LED 제어 | 수신 명령 해석 및 위치별 LED 제어 | Arduino Framework |
 
-### MQTT Message Interface
-
-Raspberry Pi와 ESP8266 간 제어 명령 전달을 위해 MQTT 메시지 형식을 정의했습니다.
-
-**Command Topic**
-```text
-node/<Board_ID>/cmd
-```
-
-**Payload Format**
-```text
-<seg>,<state>
-```
-
-**Example**
-```text
-2,ON
-```
-
-- `Board_ID`: 명령을 수신할 ESP8266의 장치 식별자
-- `seg`: 제어 대상 LED 세그먼트 번호
-- `state`: LED 제어 상태 (`ON` / `OFF`)
-
 ## Demo Video
 
 [![Remote LED Control System Demo](https://img.youtube.com/vi/b72nmJlugdU/hqdefault.jpg)](https://youtu.be/b72nmJlugdU)
