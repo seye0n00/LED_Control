@@ -25,7 +25,7 @@
 |---|---|
 | Web Browser | 사용자 입력 및 LED 제어 요청 |
 | Raspberry Pi | HTTP 요청 처리, 제어 명령 생성 및 상태 관리 |
-| MQTT Broker (Eclipse Mosquitto) | MQTT 메시지 중개 |
+| MQTT Broker (Eclipse Mosquitto) | MQTT 메시지 중계 |
 | ESP8266 (NodeMCU) | MQTT 명령 수신 및 LED 출력 제어 |
 | WS2812 LED Strip | 선택된 위치의 LED 점등 및 소등 |
 
