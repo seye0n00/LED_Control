@@ -31,11 +31,11 @@
 
 ## Core Features
 
-| 핵심 구현 | 설명 | 관련 기술 |
-|---|---|---|
-| 웹 기반 LED 제어 | 웹 사용자 요청을 수신하고 LED 제어 명령 생성 | Flask, Python, HTTP |
-| MQTT 메시지 통신 | 제어 명령 Publish 및 장치 상태 Subscribe | Paho MQTT, PubSubClient |
-| LED 제어 | 수신 명령 해석 및 위치별 LED 제어 | SPI |
+| 핵심 구현 | 설명 |
+|---|---|
+| 웹 기반 LED 제어 | Flask 웹 서버에서 HTTP 요청 처리 및 LED 제어 명령 생성 |
+| MQTT 메시지 통신 | MQTT 기반 제어 명령 Publish 및 장치 상태 Subscribe |
+| LED 제어 | 수신 명령 해석 및 지정 LED 구간 제어 |
 
 ## Demo Video
 
